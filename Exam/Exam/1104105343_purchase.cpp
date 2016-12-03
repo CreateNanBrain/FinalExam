@@ -226,6 +226,9 @@ void Update_Goods_Buy_Price(vector<Goods *> *goo, int position, int in_Buy_Price
 void Update_Goods_Last_Date(vector<Goods *> *goo, int position, Date in_Date) {
 	goo->at(position)->setdate(in_Date);
 }
+void Update_Goods_Store(vector<Goods *> *goo, int in_store) {
+
+}
 void Delete_Goods(vector<Goods *> *goo,int position) {
 	goo->erase(goo->begin() + position);
 }
@@ -317,6 +320,153 @@ void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp) {
 			cout << "新增完成" << endl;
 			system("pause");
 			break;
+		}
+		break;
+	}
+	case 2: {
+		while (1) {
+			ShowGoods(goo);
+			cout << "請輸入欲修改序號(0.退出):";
+			string sel;
+			cin >> sel;
+			if (sel == "0")
+				break;
+			if (IS_NUMBER(sel)) {
+				int sel_temp = stoi(sel);
+				if ((sel_temp >= 1) && (sel_temp <= goo->size())) {
+					while (1) {
+						system("cls");
+						cout << "請輸入欲修改欄位(0.退出,1.商品名稱,2.售價,3.上游公司,4.購買價錢,5.最後購買日期,6.庫存:";
+						string column;
+						cin >> column;
+						if (column == "0")
+							break;
+						if (IS_NUMBER(column)) {
+							switch (stoi(column)) {
+							case 1: {
+								string name;
+								cout << "輸入商品名稱(0.取消):";
+								cin >> name;
+								if (name == "0")
+									break;
+								Update_Goods_Name(goo, sel_temp - 1, name);
+								break;
+							}
+							case 2: {
+								while (1) {
+									string price;
+									cout << "請輸入價格(0.取消):";
+									cin >> price;
+									if (price == "0")
+										break;
+									if (IS_NUMBER(price)) {
+										Update_Goods_Price(goo, sel_temp - 1, stoi(price));
+										break;
+									}
+								}
+								break;
+							}
+							case 3: {
+								while (1) {
+									string comp_name;
+									cout << "請輸入上游公司(0.取消):";
+									cin >> comp_name;
+									if (comp_name == "0")
+										break;
+									if (IS_COMPANY_EXIST(comp, comp_name)) {
+										break;
+									}
+								}
+								break;
+							}
+							case 4: {
+								while (1) {
+									string buy_price;
+									cout << "輸入購買價格(0.取消)";
+									cin >> buy_price;
+									if (buy_price == "0")
+										break;
+									if (IS_NUMBER(buy_price)) {
+										Update_Goods_Buy_Price(goo, sel_temp - 1, stoi(buy_price));
+										break;
+									}
+								}
+								break;
+							}
+							case 5: {
+								string year;
+								string month;
+								string day;
+								while (1) {
+									cout << "輸入年(0.取消):";
+									cin >> year;
+									if (year == "0");
+									break;
+									if (IS_NUMBER(year)) {
+										if (stoi(year) <= getnowYear()) {
+											break;
+										}
+									}
+								}
+								if (year == "0")
+									break;
+								while (1) {
+									cout << "輸入月(0.取消):";
+									cin >> month;
+									if (month == "0")
+										break;
+									if (IS_NUMBER(month)) {
+										if (stoi(year) == getnowYear()) {
+											if (stoi(month) <= getnowMonth()) {
+												break;
+											}
+										}
+										else {
+											if (stoi(month) >= 1 && stoi(month) <= 12) {
+												break;
+											}
+										}										
+									}
+								}
+								if (month == "0")
+									break;
+								while (1) {
+									cout << "輸入日(0.取消):";
+									cin >> day;
+									if (day == "0")
+										break;
+									if (IS_NUMBER(day)) {
+										int in_day = stoi(day);
+										if ((stoi(year) == getnowYear()) && (stoi(month) == getnowMonth())) {
+											if (stoi(day) <= getnowDay()) {
+												break;
+											}
+										}
+										else {
+											if ((in_day <= 29) && (stoi(month) == 2) && (stoi(year) % 4 == 0) && ((stoi(year) % 100 != 0) || (stoi(year) % 400 == 0))) {
+												break;
+											}
+											else {
+												int true_day[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
+												if (in_day >= 1 && in_day <= true_day[stoi(month) - 1]) {
+													break;
+												}
+											}
+										}
+										
+									}
+								}
+								if (day == "0")
+									break;
+								Date *date = new Date(stoi(year), stoi(month), stoi(day));
+								Update_Goods_Last_Date(goo, sel_temp - 1, *date);
+								break;
+							}
+							}
+						}
+					}
+				}
+			}
 		}
 		break;
 	}
