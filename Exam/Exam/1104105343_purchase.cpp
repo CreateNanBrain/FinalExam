@@ -1,5 +1,6 @@
 #include "1104105343_purchase.h"
 #include "1104105343_judge.h"
+#include "1104105343_Data.h"
 //menu
 void ShowMaintainMenu(vector<Company *> *comp, vector<Goods *> *goo) {
 	system("cls");
@@ -37,6 +38,7 @@ void Update_Company_Contact_Person(vector<Company *> *comp, int position, string
 	comp->at(position)->setpContact_Person(in_Contact);
 }
 void Delete_Company(vector<Company *> *comp,int position) {
+	delete comp->at(position);
 	comp->erase(comp->begin() + position);
 }
 bool IS_COMPANY_EXIST(vector<Company *> *comp, string in_name) {
@@ -52,8 +54,9 @@ bool IS_COMPANY_EXIST(vector<Company *> *comp, string in_name) {
 void ShowCompany(vector<Company *> *comp) {
 	int i=1;
 	system("cls");
+	cout << setw(4) << "索引" << setfill(' ') << setw(30) << "公司名稱" << setw(10) << "聯絡人" << setw(20) << "聯絡電話" << endl;
 	for (vector<Company *>::iterator it = comp->begin(); it != comp->end(); it++) {
-		cout << setw(3) << setfill('0') << i << ":" << (*it)->getname() << endl;
+		cout << setw(3) << setfill('0') << i << ":" << setfill(' ')<< setw(30) << (*it)->getname() << setw(10) << (*it)->getContact_Person() << setw(20)<< (*it)->getPhone() << endl;
 		i++;
 	}
 }
@@ -202,8 +205,10 @@ void ShowCompanyMaintain(vector<Company *> *comp) {
 		system("pause");
 		break;
 	}
-	default:return;
 	}
+	while (!WriteCompanyData(comp));
+	if (input == "0")
+		return;
 	ShowCompanyMaintain(comp);
 }
 //商品維護
@@ -226,11 +231,17 @@ void Update_Goods_Buy_Price(vector<Goods *> *goo, int position, int in_Buy_Price
 void Update_Goods_Last_Date(vector<Goods *> *goo, int position, Date in_Date) {
 	goo->at(position)->setdate(in_Date);
 }
-void Update_Goods_Store(vector<Goods *> *goo, int in_store) {
-
+void Update_Goods_Store(vector<Goods *> *goo, int position, int in_store) {
+	goo->at(position)->setstore(in_store);
 }
-void Delete_Goods(vector<Goods *> *goo,int position) {
-	goo->erase(goo->begin() + position);
+void Delete_Goods(vector<Goods *> *goo,string ID) {
+	for (int i = 0; i < goo->size(); i++) {
+		if (goo->at(i)->getID_Number() == ID) {
+			delete goo->at(i);
+			goo->erase(goo->begin() + i);
+			break;
+		}
+	}
 }
 bool IS_Goods_ID_EXIST(vector<Goods *> *goo, string id) {
 	bool exist=false;
@@ -462,6 +473,22 @@ void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp) {
 								Update_Goods_Last_Date(goo, sel_temp - 1, *date);
 								break;
 							}
+							case 6: {
+								string store;
+								while (1) {	
+									cout << "請輸入庫存(x.取消):";
+									cin >> store;
+									if (store == "x" || store == "X")
+										break;
+									if (IS_NUMBER(store)) {
+										Update_Goods_Store(goo, sel_temp - 1,stoi(store));
+										break;
+									}
+								}
+								if (store == "x" || store == "X")
+									break;
+								break;
+							}
 							}
 						}
 					}
@@ -470,8 +497,33 @@ void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp) {
 		}
 		break;
 	}
-	case 4: ShowGoods(goo); system("pause"); break;
-	default:return;
+	case 3: {
+		string ID;
+		while (1) {
+			system("cls");
+			ShowGoods(goo);
+			cout << "請輸入欲刪除之統一編號(0.取消):";
+			cin >> ID;
+			if (ID == "0")
+				break;
+			if (IS_Goods_ID_EXIST(goo,ID)) {
+				string yesorno;
+				cout << "是否刪除統一編號為" << ID << "之商品?(輸入y確認)";
+				cin >> yesorno;
+				if (yesorno == "y" || yesorno == "Y") {
+					Delete_Goods(goo, ID);
+					cout << "統一編號" << ID << "之商品已刪除" << endl;
+					system("pause");
+					break;
+				}
+			}
+		}
+		break;
 	}
+	case 4: ShowGoods(goo); system("pause"); break;
+	}
+	while (!WriteGoodsData(goo));
+	if (input == "0")
+		return;
 	ShowGoodsMaintain(goo,comp);
 }
