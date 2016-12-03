@@ -1,3 +1,6 @@
+#ifndef use_outside_file
+#define use_outside_file true
+#endif
 #include "1104105343_purchase.h"
 #include "1104105343_judge.h"
 #include "1104105343_Data.h"
@@ -234,14 +237,9 @@ void Update_Goods_Last_Date(vector<Goods *> *goo, int position, Date in_Date) {
 void Update_Goods_Store(vector<Goods *> *goo, int position, int in_store) {
 	goo->at(position)->setstore(in_store);
 }
-void Delete_Goods(vector<Goods *> *goo,string ID) {
-	for (int i = 0; i < goo->size(); i++) {
-		if (goo->at(i)->getID_Number() == ID) {
-			delete goo->at(i);
-			goo->erase(goo->begin() + i);
-			break;
-		}
-	}
+void Delete_Goods(vector<Goods *> *goo,int position) {
+	delete goo->at(position);
+	goo->erase(goo->begin() + position);
 }
 bool IS_Goods_ID_EXIST(vector<Goods *> *goo, string id) {
 	bool exist=false;
@@ -253,9 +251,11 @@ bool IS_Goods_ID_EXIST(vector<Goods *> *goo, string id) {
 	return exist;
 }
 void ShowGoods(vector<Goods *> *goo) {
-	cout << setfill(' ') << "統一編號" << setw(20) << "商品名稱" << setw(8) << "庫存" << endl;
+	int i = 0;
+	cout << setfill(' ') << "索引  " << "統一編號" << setw(20) << "商品名稱" << setw(8) << "庫存" <<setw(8) << "售價" <<  setw(14) << "購買價錢" << setw(20) << "廠商名稱" << endl;
 	for (vector<Goods *>::iterator it = goo->begin(); it != goo->end(); it++) {
-		cout << setw(8) <<(*it)->getID_Number() << setw(20) << (*it)->getName() << setw(8) << (*it)->getstore() << endl;
+		i++;
+		cout << setfill('0') << setw(3) << i <<":  " << setfill(' ') << setw(8) <<(*it)->getID_Number() << setw(20) << (*it)->getName() << setw(8) << (*it)->getstore() << setw(8) << (*it)->getPrice() << setw(14) << (*it)->getBuy_Price() << setw(20) << (*it)->getcompany_name() << endl;
 	}
 }
 void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp) {
@@ -337,7 +337,7 @@ void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp) {
 	case 2: {
 		while (1) {
 			ShowGoods(goo);
-			cout << "請輸入欲修改序號(0.退出):";
+			cout << "請輸入欲修改索引(0.退出):";
 			string sel;
 			cin >> sel;
 			if (sel == "0")
@@ -498,31 +498,33 @@ void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp) {
 		break;
 	}
 	case 3: {
-		string ID;
+		string sel;
 		while (1) {
 			system("cls");
 			ShowGoods(goo);
-			cout << "請輸入欲刪除之統一編號(0.取消):";
-			cin >> ID;
-			if (ID == "0")
+			cout << "請輸入欲刪除之索引(0.取消):";
+			cin >> sel;
+			if (sel == "0")
+			break;
+			int temp = stoi(sel);
+			string yesorno;
+			cout << "是否刪除商品" << '"' << goo->at(temp-1)->getName() << '"' << "之商品?(輸入y確認)";
+			cin >> yesorno;
+			if (yesorno == "y" || yesorno == "Y") {
+				cout << '"' << goo->at(temp-1)->getName() << '"' << "之商品已刪除" << endl;
+				Delete_Goods(goo, temp - 1);
+				system("pause");
 				break;
-			if (IS_Goods_ID_EXIST(goo,ID)) {
-				string yesorno;
-				cout << "是否刪除統一編號為" << ID << "之商品?(輸入y確認)";
-				cin >> yesorno;
-				if (yesorno == "y" || yesorno == "Y") {
-					Delete_Goods(goo, ID);
-					cout << "統一編號" << ID << "之商品已刪除" << endl;
-					system("pause");
-					break;
-				}
+			
 			}
 		}
 		break;
 	}
 	case 4: ShowGoods(goo); system("pause"); break;
 	}
+#if use_outside_file
 	while (!WriteGoodsData(goo));
+#endif
 	if (input == "0")
 		return;
 	ShowGoodsMaintain(goo,comp);
