@@ -153,6 +153,7 @@
     <ClCompile Include="1104105343_main.cpp" />
     <ClCompile Include="1104105343_judge.cpp" />
     <ClCompile Include="1104105343_purchase.cpp" />
+    <ClCompile Include="1104105343_search.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="1104105343_company.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="1104105343_Date.h" />
     <ClInclude Include="1104105343_judge.h" />
     <ClInclude Include="1104105343_purchase.h" />
+    <ClInclude Include="1104105343_search.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

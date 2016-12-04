@@ -36,6 +36,9 @@
     <ClCompile Include="1104105343_Data.cpp">
       <Filter>原始程式檔</Filter>
     </ClCompile>
+    <ClCompile Include="1104105343_search.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="1104105343_company.h">
@@ -54,6 +57,9 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="1104105343_Data.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="1104105343_search.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

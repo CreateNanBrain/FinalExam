@@ -16,3 +16,10 @@ bool IS_STRING_INCLUDE(string A, string B) {
 		return false;
 	}
 }
+bool IS_STRING_INCLUDE(string A, char B) {
+	for (int i = 0; i < A.size(); i++) {
+		if (A.at(i) == B)
+			return true;
+	}
+	return false;
+}

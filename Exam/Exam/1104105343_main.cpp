@@ -9,6 +9,7 @@
 #include "1104105343_purchase.h"
 #include "1104105343_Data.h"
 #include "1104105343_judge.h"
+#include "1104105343_search.h"
 using namespace std;
 void MainMenu(vector<Company *> *comp, vector<Goods *> *goo) {
 	string sel;
@@ -23,7 +24,7 @@ void MainMenu(vector<Company *> *comp, vector<Goods *> *goo) {
 	}
 	switch (stoi(sel)) {
 	case 1:ShowMaintainMenu(comp, goo); break;
-	case 2:break;//暫時還沒做
+	case 2:Search_Menu(goo); break;
 	case 3:break;//還沒做
 	case 0:return;
 	}

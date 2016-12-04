@@ -252,10 +252,10 @@ bool IS_Goods_ID_EXIST(vector<Goods *> *goo, string id) {
 }
 void ShowGoods(vector<Goods *> *goo) {
 	int i = 0;
-	cout << setfill(' ') << "索引  " << "統一編號" << setw(20) << "商品名稱" << setw(8) << "庫存" <<setw(8) << "售價" <<  setw(14) << "購買價錢" << setw(20) << "廠商名稱" << endl;
+	cout << setfill(' ') << "索引  " << "統一編號" << setw(20) << "商品名稱" << setw(8) << "庫存" <<setw(8) << "售價" <<  setw(14) << "購買價錢" << setw(20) << "廠商名稱" << setw(15) << "最後進貨日期" << endl;
 	for (vector<Goods *>::iterator it = goo->begin(); it != goo->end(); it++) {
 		i++;
-		cout << setfill('0') << setw(3) << i <<":  " << setfill(' ') << setw(8) <<(*it)->getID_Number() << setw(20) << (*it)->getName() << setw(8) << (*it)->getstore() << setw(8) << (*it)->getPrice() << setw(14) << (*it)->getBuy_Price() << setw(20) << (*it)->getcompany_name() << endl;
+		cout << setfill('0') << setw(3) << i <<":  " << setfill(' ') << setw(8) <<(*it)->getID_Number() << setw(20) << (*it)->getName() << setw(8) << (*it)->getstore() << setw(8) << (*it)->getPrice() << setw(14) << (*it)->getBuy_Price() << setw(20) << (*it)->getcompany_name() << setw(15) << (*it)->getDate() <<endl;
 	}
 }
 void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp) {
@@ -311,7 +311,7 @@ void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp) {
 			if (Buy_Price == "0")
 				break;
 			while (1) {
-				cout << "請輸入購買數量(0.取消)";
+				cout << "請輸入購買數量(0.取消):";
 				cin >> store;
 				if (IS_NUMBER(store))
 					break;

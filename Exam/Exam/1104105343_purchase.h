@@ -28,4 +28,4 @@ void Update_Goods_Last_Date(vector<Goods *> *goo, int position, Date in_Date);
 void Update_Goods_Store(vector<Goods *> *goo, int position, int in_store);
 void Delete_Goods(vector<Goods *> *goo, int position);
 bool IS_Goods_ID_EXIST(vector<Goods *> *goo, string id);
-void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp);
+void ShowGoods(vector<Goods *> *goo);
