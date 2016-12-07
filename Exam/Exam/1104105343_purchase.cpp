@@ -86,8 +86,7 @@ void ShowCompanyMaintain(vector<Company *> *comp) {
 	case 1:{
 		while (1) {
 			cout << "請輸入廠商名稱(0.退出)：";
-			getline(cin, Name);//接收cin 忽略的換行符號
-			getline(cin, Name);
+			cin >> Name;
 			if (Name == "0")
 				break;
 			if (!IS_COMPANY_EXIST(comp, Name)) {
@@ -100,7 +99,7 @@ void ShowCompanyMaintain(vector<Company *> *comp) {
 		if (Name == "0")
 			break;
 		cout << "請輸入聯絡人(0.退出)：";
-		getline(cin, Contact);
+		cin >> Contact;
 		if (Contact == "0")
 			break;
 		while (1) {
@@ -130,7 +129,7 @@ void ShowCompanyMaintain(vector<Company *> *comp) {
 				int seltemp = stoi(sel);
 				if ((seltemp >= 1) && (seltemp <= comp->size())) {
 					while (1) {
-						system("cls");
+						system("pause");
 						cout << "請輸入欲修改項目(0.退出,1.廠商名稱,2.聯絡人,3.電話)：";
 						string updatesel;
 						cin >> updatesel;
@@ -142,8 +141,7 @@ void ShowCompanyMaintain(vector<Company *> *comp) {
 							case 1:
 								while (1) {
 									cout << "請輸入廠商名稱(0.退出)：";
-									getline(cin, Name);//接收cin 忽略的換行符號
-									getline(cin, Name);
+									cin >> Name;
 									if (Name == "0")
 										break;
 									if (!IS_COMPANY_EXIST(comp, Name)) {
@@ -157,8 +155,7 @@ void ShowCompanyMaintain(vector<Company *> *comp) {
 								break;
 							case 2:
 								cout << "請輸入聯絡人(0.退出)：";
-								getline(cin, Contact);//接收cin 忽略的換行符號
-								getline(cin, Contact);
+								cin >> Contact;
 								if (Contact == "0")
 									break;
 								Update_Company_Contact_Person(comp, seltemp - 1, Contact);
@@ -185,9 +182,8 @@ void ShowCompanyMaintain(vector<Company *> *comp) {
 		break;
 	}
 	case 3: {
+		ShowCompany(comp);
 		while (1) {
-			system("cls");
-			ShowCompany(comp);
 			string sel;
 			cout << "請輸入欲刪除廠商序號(0.退出)：";
 			cin >> sel;
@@ -195,15 +191,13 @@ void ShowCompanyMaintain(vector<Company *> *comp) {
 				break;
 			if (IS_NUMBER(sel)) {
 				int sel_temp = stoi(sel);
-				if (sel_temp > 0 && sel_temp <= comp->size()) {
-					cout << "廠商：" << comp->at(sel_temp - 1)->getname() << "，輸入Y確認刪除:";
-					string yesorno;
-					cin >> yesorno;
-					if (yesorno == "Y" || yesorno == "y") {
-						cout << "已刪除廠商" << '"' << comp->at(sel_temp - 1)->getname() << '"' << endl;
-						Delete_Company(comp, sel_temp - 1);
-						system("pause");
-					}
+				cout << "廠商：" << comp->at(sel_temp - 1)->getname() << "，輸入Y確認刪除";
+				string yesorno;
+				cin >> yesorno;
+				if (yesorno == "Y" || yesorno == "y") {
+					cout << "已刪除廠商" << comp->at(sel_temp)->getname() <<endl;
+					Delete_Company(comp, sel_temp - 1);
+					system("pause");
 				}
 			}
 		}
@@ -287,8 +281,7 @@ void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp) {
 		string store;
 		while (1) {
 			cout << "請輸入商品名稱(0.取消):";
-			getline(cin, Name);//接收cin 忽略的換行符號
-			getline(cin, Name);
+			cin >> Name;
 			if (Name == "0")
 				break;
 			while (1) {
@@ -299,10 +292,9 @@ void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp) {
 			}
 			if (Price == "0")
 				break;
-			getline(cin, comp_name);//接收cin 忽略的換行符號
 			while (1) {
 				cout << "請輸入上游公司名稱(0.取消):";
-				getline(cin, comp_name);
+				cin >> comp_name;
 				if (comp_name == "0")
 					break;
 				if (IS_COMPANY_EXIST(comp, comp_name))
@@ -365,8 +357,7 @@ void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp) {
 							case 1: {
 								string name;
 								cout << "輸入商品名稱(0.取消):";
-								getline(cin, name);//接收cin 忽略的換行符號
-								getline(cin, name);
+								cin >> name;
 								if (name == "0")
 									break;
 								Update_Goods_Name(goo, sel_temp - 1, name);
@@ -387,12 +378,10 @@ void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp) {
 								break;
 							}
 							case 3: {
-								string nouse;
-								getline(cin, nouse);//接收cin 忽略的換行符號
 								while (1) {
 									string comp_name;
 									cout << "請輸入上游公司(0.取消):";
-									getline(cin, comp_name);
+									cin >> comp_name;
 									if (comp_name == "0")
 										break;
 									if (IS_COMPANY_EXIST(comp, comp_name)) {
@@ -518,15 +507,15 @@ void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp) {
 			if (sel == "0")
 			break;
 			int temp = stoi(sel);
-			if (temp > 0 && temp <= goo->size()) {
-				string yesorno;
-				cout << "是否刪除商品" << '"' << goo->at(temp - 1)->getName() << '"' << "之商品?(輸入y確認)";
-				cin >> yesorno;
-				if (yesorno == "y" || yesorno == "Y") {
-					cout << '"' << goo->at(temp - 1)->getName() << '"' << "之商品已刪除" << endl;
-					Delete_Goods(goo, temp - 1);
-					system("pause");
-				}
+			string yesorno;
+			cout << "是否刪除商品" << '"' << goo->at(temp-1)->getName() << '"' << "之商品?(輸入y確認)";
+			cin >> yesorno;
+			if (yesorno == "y" || yesorno == "Y") {
+				cout << '"' << goo->at(temp-1)->getName() << '"' << "之商品已刪除" << endl;
+				Delete_Goods(goo, temp - 1);
+				system("pause");
+				break;
+			
 			}
 		}
 		break;
