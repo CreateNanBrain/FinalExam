@@ -3,6 +3,8 @@
 #include <string>
 #include <ctime>
 #include <Windows.h>
+#include <iostream>
+using namespace std;
 class Date
 {
 public:
