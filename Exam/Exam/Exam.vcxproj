@@ -146,7 +146,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="1104105343_checkout.cpp" />
     <ClCompile Include="1104105343_company.cpp" />
     <ClCompile Include="1104105343_Data.cpp" />
     <ClCompile Include="1104105343_Date.cpp" />
@@ -157,7 +156,6 @@
     <ClCompile Include="1104105343_search.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="1104105343_checkout.h" />
     <ClInclude Include="1104105343_company.h" />
     <ClInclude Include="1104105343_Data.h" />
     <ClInclude Include="1104105343_goods.h" />

@@ -25,7 +25,6 @@ void Goods_search_By_Name(vector<Goods *> *goo, string Name) {
 	else {
 		ShowGoods(&goo_temp);
 	}
-	system("pause");
 }
 void Goods_search_By_Company(vector<Goods *> *goo, string company) {
 	vector<Goods *> goo_temp;
