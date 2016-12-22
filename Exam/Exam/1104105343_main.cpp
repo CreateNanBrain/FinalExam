@@ -1,5 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
-#define use_outside_file true
+#define use_outside_file 1
 #include <iostream>
 #include <vector>
 #include <time.h>

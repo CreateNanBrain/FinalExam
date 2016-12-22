@@ -8,7 +8,7 @@
 using namespace std;
 //menu
 void ShowMaintainMenu(vector<Company *> *comp, vector<Goods *> *goo);
-void ShowCompanyMaintain(vector<Company *> *comp);
+void ShowCompanyMaintain(vector<Company *> *comp, vector<Goods *> *goo);
 void ShowGoodsMaintain(vector<Goods *> *goo,vector<Company *> *comp);
 //¼t°ÓºûÅ@
 void Add_Company(vector<Company *> *comp, string in_name, string in_contact, string in_Phone);

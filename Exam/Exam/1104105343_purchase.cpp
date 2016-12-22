@@ -1,5 +1,5 @@
 #ifndef use_outside_file
-#define use_outside_file true
+#define use_outside_file 1
 #endif
 #include "1104105343_purchase.h"
 #include "1104105343_judge.h"
@@ -20,7 +20,7 @@ void ShowMaintainMenu(vector<Company *> *comp, vector<Goods *> *goo) {
 		cout << "0.退出" << "  " << "1.廠商維護" << "  " << "2.商品維護：";
 	}
 	switch (stoi(input)) {
-	case 1:ShowCompanyMaintain(comp);	break;
+	case 1:ShowCompanyMaintain(comp,goo);	break;
 	case 2:ShowGoodsMaintain(goo,comp);		break;
 	default:return;
 	}
@@ -63,7 +63,7 @@ void ShowCompany(vector<Company *> *comp) {
 		i++;
 	}
 }
-void ShowCompanyMaintain(vector<Company *> *comp) {
+void ShowCompanyMaintain(vector<Company *> *comp,vector<Goods *> *goo) {
 	string input;
 	system("cls");
 	cout << "0.退出" << "  " << "1.新增廠商" << "  " << "2.修改廠商" << "  " << "3.刪除廠商" << "  " << "4.秀合作廠商：";
@@ -200,6 +200,14 @@ void ShowCompanyMaintain(vector<Company *> *comp) {
 					string yesorno;
 					cin >> yesorno;
 					if (yesorno == "Y" || yesorno == "y") {
+						for (int i = 0; i < goo->size();) {
+							if (goo->at(i)->getcompany_name() == comp->at(sel_temp - 1)->getname()) {
+								Delete_Goods(goo, i);
+							}
+							else {
+								i++;
+							}
+						}
 						cout << "已刪除廠商" << '"' << comp->at(sel_temp - 1)->getname() << '"' << endl;
 						Delete_Company(comp, sel_temp - 1);
 						system("pause");
@@ -218,7 +226,7 @@ void ShowCompanyMaintain(vector<Company *> *comp) {
 	while (!WriteCompanyData(comp));
 	if (input == "0")
 		return;
-	ShowCompanyMaintain(comp);
+	ShowCompanyMaintain(comp,goo);
 }
 //商品維護
 void Add_Goods(vector<Goods *> *goo, string in_ID_Number, string in_Name, int in_Price, string in_company_name, int in_Buy_Price, Date in_Date, int in_store) {
@@ -301,6 +309,7 @@ void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp) {
 				break;
 			getline(cin, comp_name);//接收cin 忽略的換行符號
 			while (1) {
+				ShowCompany(comp);
 				cout << "請輸入上游公司名稱(0.取消):";
 				getline(cin, comp_name);
 				if (comp_name == "0")
@@ -391,6 +400,7 @@ void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp) {
 								getline(cin, nouse);//接收cin 忽略的換行符號
 								while (1) {
 									string comp_name;
+									ShowCompany(comp);
 									cout << "請輸入上游公司(0.取消):";
 									getline(cin, comp_name);
 									if (comp_name == "0")

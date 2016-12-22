@@ -1,3 +1,7 @@
+#ifndef use_outside_file
+#define use_outside_file 1
+#endif
+
 #include "1104105343_checkout.h"
 bool is_goods_exist = false;
 bool is_first_in = true;
@@ -79,6 +83,9 @@ bool show_shopping_cart(vector<Goods *> *goo, vector<int> *amount) {
 		cout << "Á`¦@" << total << "¤¸" << endl;
 		system("pause");
 		is_first_in = true;
+		#if use_outside_file
+				while (!WriteGoodsData(goo));
+		#endif
 		return true;
 	}
 	if (IS_NUMBER(input)) {
