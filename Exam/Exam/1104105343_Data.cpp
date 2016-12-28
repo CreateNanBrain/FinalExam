@@ -11,8 +11,13 @@ void ReadCompanyData(vector<Company *> *comp) {
 		string Contact;
 		string Contact_temp;
 		string Phone;
+		bool is_eof = false;
 		while (1) {
 			fin >> Name_temp;
+			if (fin.eof()) {
+				is_eof = true;
+				break;
+			}
 			if (Name_temp.at(0) == '"' && Name_temp.at(Name_temp.size() - 1) == '"') {
 				Name_temp.erase(Name_temp.begin());
 				Name_temp.erase(Name_temp.end() - 1);
@@ -31,6 +36,9 @@ void ReadCompanyData(vector<Company *> *comp) {
 			else {
 				Name += Name_temp+" ";
 			}
+		}
+		if (is_eof) {
+			break;
 		}
 		while (1) {
 			fin >> Contact_temp;
@@ -76,6 +84,8 @@ void ReadGoodsData(vector<Goods *> *goo) {
 	while (!fin.eof()) {
 		//fin >> ID >> Name >> Price >> company_name >> Buy_Price >> date >> store;
 		fin >> ID;
+		if (fin.eof())
+			break;
 		while (1) {
 			fin >> Name_temp;
 			if (Name_temp.at(0) == '"' && Name_temp.at(Name_temp.size() - 1) == '"') {

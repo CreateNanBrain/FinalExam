@@ -107,8 +107,13 @@ void Search_Menu(vector<Goods *> *goo) {
 	}
 	case 2: {
 		string Name;
-		cout << "請輸入欲查詢商品名稱(0.取消)";
-		cin >> Name;
+		getline(cin, Name);//消除cin遺留之...
+		while (1) {
+			cout << "請輸入欲查詢商品名稱(0.取消)";
+			getline(cin, Name);
+			if ((Name != "") && !IS_ALL_SPACE(Name))
+				break;
+		}
 		if (Name == "0")
 			break;
 		Goods_search_By_Name(goo, Name);
@@ -116,8 +121,14 @@ void Search_Menu(vector<Goods *> *goo) {
 	}
 	case 3: {
 		string company;
-		cout << "請輸入上游公司名稱(0.取消):";
-		cin >> company;
+		getline(cin, company);//消除cin遺留之...
+		while (1) {
+			cout << "請輸入上游公司名稱(0.取消):";
+			getline(cin, company);
+			if ((company != "") && !IS_ALL_SPACE(company))
+				break;
+		}
+		
 		if (company == "0")
 			break;
 		Goods_search_By_Company(goo, company);

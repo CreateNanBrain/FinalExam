@@ -85,9 +85,13 @@ void ShowCompanyMaintain(vector<Company *> *comp,vector<Goods *> *goo) {
 	switch (stoi(input)) {
 	case 1:{
 		while (1) {
-			cout << "請輸入廠商名稱(0.退出)：";
 			getline(cin, Name);//接收cin 忽略的換行符號
-			getline(cin, Name);
+			while (1) {
+				cout << "請輸入廠商名稱(0.退出)：";
+				getline(cin, Name);
+				if ((Name != "") && !IS_ALL_SPACE(Name))
+					break;
+			}
 			if (Name == "0")
 				break;
 			if (!IS_COMPANY_EXIST(comp, Name)) {
@@ -99,8 +103,12 @@ void ShowCompanyMaintain(vector<Company *> *comp,vector<Goods *> *goo) {
 		}
 		if (Name == "0")
 			break;
-		cout << "請輸入聯絡人(0.退出)：";
-		getline(cin, Contact);
+		while (1) {
+			cout << "請輸入聯絡人(0.退出)：";
+			getline(cin, Contact);
+			if ((Contact != "") && !IS_ALL_SPACE(Contact))
+				break;
+		}
 		if (Contact == "0")
 			break;
 		while (1) {
@@ -141,9 +149,13 @@ void ShowCompanyMaintain(vector<Company *> *comp,vector<Goods *> *goo) {
 							switch (updatesel_temp) {
 							case 1:
 								while (1) {
-									cout << "請輸入廠商名稱(0.退出)：";
 									getline(cin, Name);//接收cin 忽略的換行符號
-									getline(cin, Name);
+									while (1) {
+										cout << "請輸入廠商名稱(0.退出)：";
+										getline(cin, Name);
+										if ((Name != "") && !IS_ALL_SPACE(Name))
+											break;
+									}			
 									if (Name == "0")
 										break;
 									if (!IS_COMPANY_EXIST(comp, Name)) {
@@ -156,9 +168,14 @@ void ShowCompanyMaintain(vector<Company *> *comp,vector<Goods *> *goo) {
 								Update_Company_Name(comp, seltemp - 1, Name);
 								break;
 							case 2:
-								cout << "請輸入聯絡人(0.退出)：";
 								getline(cin, Contact);//接收cin 忽略的換行符號
-								getline(cin, Contact);
+								while (1) {
+									cout << "請輸入聯絡人(0.退出)：";
+									getline(cin, Contact);
+									if ((Contact != "") && !IS_ALL_SPACE(Contact))
+										break;
+								}
+								
 								if (Contact == "0")
 									break;
 								Update_Company_Contact_Person(comp, seltemp - 1, Contact);
@@ -294,9 +311,13 @@ void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp) {
 		string ID;
 		string store;
 		while (1) {
-			cout << "請輸入商品名稱(0.取消):";
 			getline(cin, Name);//接收cin 忽略的換行符號
-			getline(cin, Name);
+			while (1) {
+				cout << "請輸入商品名稱(0.取消):";
+				getline(cin, Name);
+				if ((Name != "") && !IS_ALL_SPACE(Name))
+					break;
+			}
 			if (Name == "0")
 				break;
 			while (1) {
@@ -373,9 +394,13 @@ void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp) {
 							switch (stoi(column)) {
 							case 1: {
 								string name;
-								cout << "輸入商品名稱(0.取消):";
 								getline(cin, name);//接收cin 忽略的換行符號
-								getline(cin, name);
+								while (1) {
+									cout << "輸入商品名稱(0.取消):";
+									getline(cin, name);
+									if ((name != "")&& !IS_ALL_SPACE(name))
+										break;
+								}
 								if (name == "0")
 									break;
 								Update_Goods_Name(goo, sel_temp - 1, name);
@@ -401,7 +426,7 @@ void ShowGoodsMaintain(vector<Goods *> *goo, vector<Company *> *comp) {
 								while (1) {
 									string comp_name;
 									ShowCompany(comp);
-									cout << "請輸入上游公司(0.取消):";
+									cout << "請輸入上游公司名稱(0.取消):";
 									getline(cin, comp_name);
 									if (comp_name == "0")
 										break;

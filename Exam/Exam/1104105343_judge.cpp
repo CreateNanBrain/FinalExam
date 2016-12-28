@@ -1,12 +1,14 @@
 #include "1104105343_judge.h"
 bool IS_NUMBER(string number) {
-	bool is = true;
+	if (number == "") {
+		return false;
+	}
 	for (int i = 0; i < number.size();i++) {
 		if (number.at(i) < '0' || number.at(i) > '9') {
-			is = false;
+			return false;
 		}
 	}
-	return is;
+	return true;
 }
 bool IS_STRING_INCLUDE(string A, string B) {
 	if (A.find(B) < A.length()) {
@@ -22,4 +24,13 @@ bool IS_STRING_INCLUDE(string A, char B) {
 			return true;
 	}
 	return false;
+}
+bool IS_ALL_SPACE(string A) {
+	if (A.at(0) == ' ')
+		return true;
+	for (int i = 0; i < A.size(); i++) {
+		if (A.at(i) != ' ')
+			return false;
+	}
+	return true;
 }

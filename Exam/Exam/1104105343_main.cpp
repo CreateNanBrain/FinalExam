@@ -39,6 +39,22 @@ void main(void) {
 #if use_outside_file
 	ReadCompanyData(&company);
 	ReadGoodsData(&goods);
+	int i = 0;
+	while (1) {
+		if (i < goods.size()) {
+			if (IS_COMPANY_EXIST(&company, goods.at(i)->getcompany_name())) {
+				i++;
+			}
+			else {
+				Delete_Goods(&goods, i);
+			}
+		}
+		else {
+			break;
+		}
+	}
+	while (!WriteCompanyData(&company));
+	while (!WriteGoodsData(&goods));
 #endif
 	MainMenu(&company, &goods);
 #if use_outside_file
